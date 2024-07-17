@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 use App\Models\Post;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+   // public function __construct()
+    //{
+       // $this->middleware('auth');
+   // }
+
+
     public function index() {
       
         //dd(Post::factory()-> create());
         $posts = Post::all( );
-       
+
+       // $posts = Auth::user()->posts;
+        //dd($posts,Auth::user());
         return view('Posts.index',compact('posts'));
 
     }
@@ -25,7 +34,10 @@ class PostController extends Controller
     public function show(Post $post) {
       
          
-     
+      // if(Auth::id() != $post->user_id){
+       //    abort(403);
+
+      // }
        return view('Posts.show',compact('post'));
 
     }
@@ -75,7 +87,12 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        $post = Post::find($id);
+
+         // Ensure the user is authenticated, creates an authentication in the constructor of this class.
+       //if (!auth()->check()) {
+        //return redirect()->route('login');
+       //} 
+       $post = Post::find($id);
        $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
