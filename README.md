@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## My Project Report 
+
+URL : https://github.com/courtis75/test7
+
+Initially I found it difficult to comprehend how URL requests were executed given the simplified, short cut nature of Laravel’s syntax. For example, retrieving a particular post via the posts.show view by dynamically passing a unique ID (obtained from the URL) as a parameter to the function in the controller was initially challenging to understand. However, after reviewing the lectures and reading the Laravel documentation, it became clearer. I added the functionality to update, delete and filter for post titles by following the approach outlined during the lectures. The program flow is generally commenced with a URL request which can be either a GET,POST,PUT or delete request, and these are then directed by the ROUTES (via the ROUTE::RESOURCE, which contain a set of defined routes pointing to a particular function within a controller for common CRUD operations) to the Controller which in turn uses a model to interrogate the DB and retrieve or post information and ultimately post the information via a view. This general process allowed me to understand how to implement the additional functionality along with referring to the video lectures and Laravel documentation.
+Please note that I have commented out all the user Authentication lines in the code including in the construct function of LoginController.php because the Assignment specifications did not ask for this to be implemented. 
+
+For the bonus point I implemented a simple Post search function so the user can search for certain posts based on keywords within the title of the post. I created a search function in the controller using laravel query builder syntax, applied the search button and text form in the index.blade and posted the results via the search.blade. By implementing this functionality I believe that i am entitled to earn the bonus mark as it shows my general understanding of the program flow.
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
