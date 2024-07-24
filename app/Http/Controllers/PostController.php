@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
 
-   // public function __construct()
-    //{
-       // $this->middleware('auth');
-   // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 
     public function index() {
@@ -19,7 +19,7 @@ class PostController extends Controller
         //dd(Post::factory()-> create());
         $posts = Post::all( );
 
-       // $posts = Auth::user()->posts;
+        $posts = Auth::user()->posts;
         //dd($posts,Auth::user());
         return view('Posts.index',compact('posts'));
 
@@ -34,10 +34,10 @@ class PostController extends Controller
     public function show(Post $post) {
       
          
-      // if(Auth::id() != $post->user_id){
-       //    abort(403);
+       if(Auth::id() != $post->user_id){
+           abort(403);
 
-      // }
+       }
        return view('Posts.show',compact('post'));
 
     }
@@ -89,9 +89,9 @@ class PostController extends Controller
     {
 
          // Ensure the user is authenticated, creates an authentication in the constructor of this class.
-       //if (!auth()->check()) {
-        //return redirect()->route('login');
-       //} 
+       if (!auth()->check()) {
+        return redirect()->route('login');
+       } 
        $post = Post::find($id);
        $post->delete();
 

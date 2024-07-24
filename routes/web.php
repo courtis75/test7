@@ -16,7 +16,7 @@ Route::get('/', function () {
 /* Route::get('/posts/create',[PostController::class,'create'])->name('posts.create'); --}} */
 /* Route::get('/posts/show',[PostController::class,'show'])->name('posts.show'); --}} */
 
-//Route::group(['middleware'=> ['auth']],function() {
+Route::group(['middleware'=> ['auth']],function() {
     Route::resource('posts', PostController::class);
     Route::resource('photos', PhotoController::class);
     Route::get('posts.search', [PostController::class, 'search'])->name('posts.search');
@@ -25,7 +25,7 @@ Route::get('/', function () {
    
     
 
-//});
+});
 
 
 
