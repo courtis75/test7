@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\UserController;
 
 
 Route::get('/', function () {
@@ -20,13 +23,40 @@ Route::group(['middleware'=> ['auth']],function() {
     Route::resource('posts', PostController::class);
     Route::resource('photos', PhotoController::class);
     Route::get('posts.search', [PostController::class, 'search'])->name('posts.search');
-    //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');//->middleware('auth');
-    Route::get('/home', [PostController::class, 'index'])->name('home');//->middleware('auth');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');//->middleware('auth');
+    Route::get('/home', [PostController::class, 'index'])->name('home');
    
     
 
 });
 
+//Route::prefix('admin')->group(['middleware'=> ['auth']],function() {
+  //  Route::resource('admin/posts', PostController::class);
+   // Route::resource('admin/photos', PhotoController::class);
+   // Route::get('admin/posts.search', [PostController::class, 'search'])->name('posts.search');
+    //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');//->middleware('auth');
+    //Route::get('admin/posts', [PostController::class, 'index'])->name('home');//->middleware('auth');
+    //dd('test');
+
+    //Route::get('admin/posts',[AdminPostController::class,'index'])->name('admin/posts.index')->middleware(AdminMiddleware::class);
+    //Route::get('admin/posts',[AdminPostController::class,'create'])->name('admin/posts.create');
+
+
+    Route::get('admin/posts',[AdminPostController::class,'show'])->name('admin/posts.show')->middleware(AdminMiddleware::class);
+
+    //Route::get('admin/posts/manage',[AdminPostController::class,'manage'])->name('Admin/posts.manage')->middleware(AdminMiddleware::class);
+    //Route::get('admin/users/manage',[UserController::class,'manage'])->name('Admin/users.manage')->middleware(AdminMiddleware::class);
+    Route::get('admin/posts/{id}',[AdminPostController::class,'showEach'])->name('admin/posts.showEach')->middleware(AdminMiddleware::class);
+
+    // Edit post
+Route::get('admin/posts/{id}/edit', [AdminPostController::class, 'edit'])->name('admin/posts.edit')->middleware(AdminMiddleware::class);
+Route::put('admin/posts/{id}/update', [AdminPostController::class, 'update'])->name('admin/posts.update')->middleware(AdminMiddleware::class);
+
+// Delete post
+Route::delete('admin/posts/{id}', [AdminPostController::class, 'destroy'])->name('admin/posts.destroy')->middleware(AdminMiddleware::class);
+
+
+//});
 
 
 Auth::routes();

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+
 
 class User extends Authenticatable
 {
@@ -55,4 +57,21 @@ class User extends Authenticatable
 
 
     }
+
+    public function isAdmin()
+    {
+        
+        return $this->is_admin;
+    }
+
+   protected static function booted()
+   {
+     static::creating(function(User $user){
+     
+          if(auth()->check()){
+          $user->role = 'author'; 
+          }      
+     });
+
+   }
 }
