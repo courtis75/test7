@@ -41,9 +41,7 @@ class PostController extends Controller
  
      }
 
-     public function manage() {
-
-     }
+ 
 
      public function showEach($id)
      {

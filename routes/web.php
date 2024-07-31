@@ -43,17 +43,22 @@ Route::group(['middleware'=> ['auth']],function() {
 
 
     Route::get('admin/posts',[AdminPostController::class,'show'])->name('admin/posts.show')->middleware(AdminMiddleware::class);
+    
 
     //Route::get('admin/posts/manage',[AdminPostController::class,'manage'])->name('Admin/posts.manage')->middleware(AdminMiddleware::class);
     //Route::get('admin/users/manage',[UserController::class,'manage'])->name('Admin/users.manage')->middleware(AdminMiddleware::class);
     Route::get('admin/posts/{id}',[AdminPostController::class,'showEach'])->name('admin/posts.showEach')->middleware(AdminMiddleware::class);
+    Route::get('admin/users/{id}',[UserController::class,'showEach'])->name('admin/users.showEach')->middleware(AdminMiddleware::class);
 
     // Edit post
 Route::get('admin/posts/{id}/edit', [AdminPostController::class, 'edit'])->name('admin/posts.edit')->middleware(AdminMiddleware::class);
+Route::get('admin/users/{id}/edit', [UserController::class, 'edit'])->name('admin/users.edit')->middleware(AdminMiddleware::class);
 Route::put('admin/posts/{id}/update', [AdminPostController::class, 'update'])->name('admin/posts.update')->middleware(AdminMiddleware::class);
+Route::put('admin/users/{id}/update', [UserController::class, 'update'])->name('admin/users.update')->middleware(AdminMiddleware::class);
 
 // Delete post
 Route::delete('admin/posts/{id}', [AdminPostController::class, 'destroy'])->name('admin/posts.destroy')->middleware(AdminMiddleware::class);
+Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin/users.destroy')->middleware(AdminMiddleware::class);
 
 
 //});

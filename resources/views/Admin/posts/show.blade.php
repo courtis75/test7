@@ -25,7 +25,7 @@
             <ul style="list-style-type: none;">
                 @foreach ($users as $user)
                     <li>
-                        <a href="{{ route('admin/posts.show', $user->id) }}">{{ $user->email }}</a>
+                        <a href="{{ route('admin/users.showEach', $user->id) }}">{{ $user->email }}</a>
                     </li>  
                 @endforeach
             </ul>
