@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- My content --}}
-    <h1>Blog Posts details</h1>
+    <h1 style="margin-left: 35px;">Admin Panel: Post + User details</h1>
 
     <div style="margin-bottom: 20px;">
     
@@ -10,7 +10,7 @@
 
     <div style="display: flex; gap: 20px;">
         <div>
-            <h2>Posts</h2>
+        <h2 style="margin-left: 40px;">Posts</h2>
             <ul style="list-style-type: none;">
                 @foreach ($posts as $post)
                     <li>
@@ -21,7 +21,7 @@
         </div>
 
         <div>
-            <h2>Users</h2>
+        <h2 style="margin-left: 40px;">Users</h2>
             <ul style="list-style-type: none;">
                 @foreach ($users as $user)
                     <li>

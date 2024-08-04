@@ -14,9 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        if (User::count() < 5) {
         User::factory(5)
-        ->has(Post::factory(10))
+        ->has(Post::factory(3))
         ->create();
+        }
+
+        // Update user roles
+        $this->call(UpdateUserRolesSeeder::class);
 
        // User::factory()->create([
            // 'name' => 'Test User',
