@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -40,6 +41,35 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+       // dd($request->all());
+        //$this->validator($request->all())->validate();
+      
+
+        $data = $request->all();
+        $data['is_admin'] = $request->has('is_admin') && $request->input('is_admin') === 'true';
+        $data['role'] = ucfirst($data['role']);
+        //dd($data);
+        $validator = $this->validator($data);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+       
+        $user = $this->create($request->all());
+     
+
+        $this->guard()->login($user);
+
+        return redirect($this->redirectPath());
+    }
+
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -48,11 +78,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+     
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'role' => ['required', 'string', 'in:Admin,Author,User'],
+            'is_admin' => ['required', 'boolean'], 
+            
+
+        ]);   
+
     }
 
     /**
@@ -63,10 +99,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+    
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'is_admin' => $data['is_admin'] === 'true',
+            'role' => $data['role'],
         ]);
     }
 }

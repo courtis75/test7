@@ -61,6 +61,21 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                           <label for="role">Role</label>
+                              <select id="role" name="role" required>
+                                 <option value="admin">Admin</option>
+                                 <option value="author">Author</option>
+                                 <option value="user">User</option>
+                             </select>
+                        </div>
+
+                        <div class="row mb-3">
+                           <input type="hidden" name="is_admin" value="false">
+                           <label for="is_admin">Is Admin</label>
+                           <input id="is_admin" type="checkbox" name="is_admin" value="true">
+                         </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

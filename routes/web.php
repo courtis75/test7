@@ -6,6 +6,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', function () {
@@ -60,6 +61,10 @@ Route::put('admin/users/{id}/update', [UserController::class, 'update'])->name('
 Route::delete('admin/posts/{id}', [AdminPostController::class, 'destroy'])->name('admin/posts.destroy')->middleware(AdminMiddleware::class);
 Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin/users.destroy')->middleware(AdminMiddleware::class);
 
+// Route to show the registration form
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route to handle the registration form submission
+Route::post('register', [RegisterController::class, 'register']);
 
 //});
 

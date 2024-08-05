@@ -100,14 +100,36 @@ class PostController extends Controller
 
    public function search(Request $request)
    {
-       $query = $request->input('query');
-       
-      
-       $posts = Post::where('title', 'LIKE', "%{$query}%")
-                    ->orWhere('content', 'LIKE', "%{$query}%")
-                    ->get();
+    $query = $request->input('query');
+    $user = auth()->user();
 
-       return view('Posts.search', compact('posts'));
+    if ($user->role === 'admin' || $user->role === 'user') {
+        // Admins and users can see all filtered posts
+        $posts = Post::where('title', 'LIKE', "%{$query}%")
+                     ->orWhere('content', 'LIKE', "%{$query}%")
+                     ->get();
+    } elseif ($user->role === 'author') {
+        // Authors can only see their own posts
+        $posts = Post::where('user_id', $user->id)
+                     ->where(function($q) use ($query) {
+                         $q->where('title', 'LIKE', "%{$query}%")
+                           ->orWhere('content', 'LIKE', "%{$query}%");
+                     })
+                     ->get();
+    } else {
+        // If the role is not recognized, return an empty collection 
+        $posts = collect();
+    }
+
+    //$query = $request->input('query');
+    //$posts = Post::where('title', 'LIKE', "%{$query}%")
+               //  ->orWhere('content', 'LIKE', "%{$query}%")
+               //  ->get();
+    //return view('Posts.search', compact('posts'));
+
+
+
+    return view('Posts.search', compact('posts'));
    }
 
 
