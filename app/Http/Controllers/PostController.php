@@ -33,11 +33,16 @@ class PostController extends Controller
 
     public function show(Post $post) {
       
-         
-       if(Auth::id() != $post->user_id){
-           abort(403);
+        $user = auth()->user();
 
-       }
+        if ($user->role === 'author'  ||  $user->role === 'user' ) {
+          if(Auth::id() != $post->user_id){
+           //abort(403);
+           return view('Posts.showUser',compact('post'));
+
+          
+           }
+        }
        return view('Posts.show',compact('post'));
 
     }
