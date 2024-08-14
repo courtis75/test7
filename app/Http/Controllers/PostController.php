@@ -44,6 +44,7 @@ class PostController extends Controller
            }
         }
        return view('Posts.show',compact('post'));
+       
 
     }
 
@@ -60,7 +61,11 @@ class PostController extends Controller
         'content'=>'required']);
 
         Post::create($request->all());
-        return redirect()->route('posts.index');
+        $user = auth()->user();
+
+        if ($user->role === 'admin'){
+           return redirect('/admin/posts');}
+        else {return redirect()->route('posts.index');}  
     }
 
 

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,17 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+
+     protected function redirectTo()
+     {
+         if (auth()->user()->role === 'admin') {
+             return '/admin/posts';
+         }
+ 
+         return '/home';
+     }
+
+    //protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -38,22 +49,31 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+       
+       // $this->middleware('guest');//->except('showRegistrationForm');
     }
 
     public function showRegistrationForm()
     {
+        
+         // Ensure only admins can access this method
+         //if (!Auth::check() || !Auth::user()->isAdmin()) {
+
+              //dd('here');
+              //return redirect('/home');
+        //}
+        
         return view('auth.register');
     }
 
     public function register(Request $request)
     {
-       // dd($request->all());
+        //dd($request->all());
         //$this->validator($request->all())->validate();
       
-
+        
         $data = $request->all();
-        $data['is_admin'] = $request->has('is_admin') && $request->input('is_admin') === 'true';
+        $data['is_admin'] = $request->has('is_admin') && $request->input('is_admin') == 'true';
         $data['role'] = ucfirst($data['role']);
         //dd($data);
         $validator = $this->validator($data);
@@ -63,8 +83,15 @@ class RegisterController extends Controller
        
         $user = $this->create($request->all());
      
-
-        $this->guard()->login($user);
+     
+        if (!Auth::check()) {
+            $currentUser = Auth::user();
+           
+            //if (!$currentUser->isAdmin()) {
+                // Log in the newly created user if the current user is not an admin
+                $this->guard()->login($user);
+            //}
+        }
 
         return redirect($this->redirectPath());
     }
@@ -78,13 +105,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-     
+        
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'string', 'in:Admin,Author,User'],
             'is_admin' => ['required', 'boolean'], 
+            'role' => ['required', 'string', 'in:Admin,Author,User'],
             
 
         ]);   
@@ -99,7 +126,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    
+        //dd($data['role']);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

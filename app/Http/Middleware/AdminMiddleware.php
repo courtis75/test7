@@ -19,7 +19,6 @@ class AdminMiddleware
     {
         if (!Auth::check()) {
             // Redirect to home if user is not authenticated or not an admin
-            //dd('test');
             return redirect('/login');
         }
 
@@ -27,12 +26,11 @@ class AdminMiddleware
          $user = Auth::user();
          if (!$user->is_admin) {
              // If not an admin, redirect to home or an appropriate page
-             ##dd($user->is_admin);
               
              return abort(403);//redirect('/');
          }
 
-
+     
         return $next($request);
     }
 }

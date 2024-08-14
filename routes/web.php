@@ -62,9 +62,9 @@ Route::delete('admin/posts/{id}', [AdminPostController::class, 'destroy'])->name
 Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin/users.destroy')->middleware(AdminMiddleware::class);
 
 // Route to show the registration form
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->middleware(AdminMiddleware::class)->name('register');
 // Route to handle the registration form submission
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('register', [RegisterController::class, 'register'])->middleware(AdminMiddleware::class);
 
 //});
 

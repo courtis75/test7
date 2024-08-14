@@ -5,30 +5,42 @@
     <h1 style="margin-left: 35px;">Admin Panel: Post + User details</h1>
 
     <div style="margin-bottom: 20px;">
-    
-    </div>
 
-    <div style="display: flex; gap: 20px;">
-        <div>
-        <h2 style="margin-left: 40px;">Posts</h2>
-            <ul style="list-style-type: none;">
-                @foreach ($posts as $post)
-                    <li>
-                    <a href="{{ route('admin/posts.showEach', ['id' => $post->_id]) }}">{{ $post->title }}</a>
-                    </li>  
-                @endforeach
-            </ul>
-        </div>
+        <div style="display: flex; gap: 20px; flex-direction: column;">
 
-        <div>
-        <h2 style="margin-left: 40px;">Users</h2>
-            <ul style="list-style-type: none;">
-                @foreach ($users as $user)
-                    <li>
-                        <a href="{{ route('admin/users.showEach', $user->id) }}">{{ $user->email }}</a>
-                    </li>  
-                @endforeach
-            </ul>
+            <div>
+                <h2 style="margin-left: 40px;">Posts</h2>
+
+                <form action="{{ route('posts.create') }}" method="GET" style="display: inline;">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 40px;">Create New Post</button>
+                </form>
+
+                <ul style="list-style-type: none;">
+                    @foreach ($posts as $post)
+                        <li>
+                            <a href="{{ route('admin/posts.showEach', ['id' => $post->_id]) }}">{{ $post->title }}</a>
+                        </li>  
+                    @endforeach
+                </ul>
+            </div>
+
+            {{-- Add similar structure for the Users section if needed --}}
+            <div>
+                <h2 style="margin-left: 40px;">Users</h2>
+
+                <form action="{{ route('register') }}" method="GET" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary" style="margin-left: 40px;">Register New User</button>
+                </form>
+
+                <ul style="list-style-type: none;">
+                    @foreach ($users as $user)
+                        <li>
+                            <a href="{{ route('admin/users.showEach', $user->id) }}">{{ $user->email }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
         </div>
     </div>
 @endsection

@@ -25,8 +25,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
         'is_admin',
+        'role',
     ];
 
     /**
@@ -63,14 +63,15 @@ class User extends Authenticatable
     public function isAdmin()
     {
         
-        return $this->is_admin;
+        //return $this->is_admin;
+        return $this->role ==='admin';
     }
 
    protected static function booted()
    {
      static::creating(function(User $user){
      
-          if(auth()->check()){
+          if(auth()->check() && empty($user->role)){
           $user->role = 'author'; 
           }      
      });
