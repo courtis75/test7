@@ -11,7 +11,7 @@
         @csrf
         @method('DELETE')
     
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this User?')">Delete</button>
         
     </form>
     <ul>

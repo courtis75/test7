@@ -36,6 +36,7 @@
                     @foreach ($users as $user)
                         <li>
                             <a href="{{ route('admin/users.showEach', $user->id) }}">{{ $user->email }}</a>
+                            <span style="margin-left: 20px;"> {{ $user->role }}</span>
                         </li>
                     @endforeach
                 </ul>
