@@ -18,7 +18,15 @@
                 <ul style="list-style-type: none;">
                     @foreach ($posts as $post)
                         <li>
-                            <a href="{{ route('admin/posts.showEach', ['id' => $post->_id]) }}">{{ $post->title }}</a>
+                            <a href="{{ route('admin/posts.showEach', ['id' => $post->_id]) }}">
+                                {{ $post->title }} 
+                                
+                                @if ($post->user)
+                                    <span style="margin-left: 100px;color: red"><strong>by {{ $post->user->email }}</strong></span>
+                                @else
+                                    <span style="margin-left: 100px;color: red"><strong>by Unknown</strong></span>
+                                @endif
+                            </a>
                         </li>  
                     @endforeach
                 </ul>
