@@ -28,7 +28,7 @@
   <body>
      
      
-    @include('layouts.includes.navbar')
+     @include('layouts.includes.navbar') 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     
     @yield('content')
