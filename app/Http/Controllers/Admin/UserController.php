@@ -48,7 +48,12 @@ class UserController extends Controller
          if (!$user) {
              return redirect()->route('admin/users.show')->with('error', 'User not found');
          }
-
+ 
+             // Check if the delete_posts checkbox was checked
+        if (request()->has('delete_posts') && request()->input('delete_posts') === 'yes') {
+        // Delete all posts associated with this user
+            $user->posts()->delete(); 
+         }
  
          $user->delete();
          return redirect()->route('admin/posts.show')->with('success', 'Post deleted successfully');
