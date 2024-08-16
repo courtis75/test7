@@ -18,10 +18,17 @@ Please note that I have commented out all the user Authentication lines in the c
 For the bonus point I implemented a simple Post search function so the user can search for certain posts based on keywords within the title of the post. I created a search function in the controller using laravel query builder syntax, applied the search button and text form in the index.blade and posted the results via the search.blade. By implementing this functionality I believe that i am entitled to earn the bonus mark as it shows my general understanding of the program flow.
 
 Assignment2:
+
+To run the project, please run the following commands to set up/configure the mongo db (test10) with both the users and posts collections/tables and to insert dummy documents/records: 
+1. php artisan migrate
+2. php artisan db:seed
+
+The .env file was ammended with the blank database name (test10) and the contents of this file was copied into the .env.example file. Both the node_modules and vendor folders were removed from the zipped file for submission as was the .env file.
+
 For this assignment I implemented CRUD operations for the three roles being admin, user and author. The registration process was updated to allow for the registration of all three role types with a role selection available via a drop down box. In addition to this, i manually created an 'is_admin' boolean field in the user tables with a checkbox shown in the registration screen. The 'is_admin' user attribute was used in the admin mmiddleware and to execute certain functionality including when adding a new user such that the admin user remains logged in rather than the newly created user. The admin_layout blade incorporating the bootstrap form was applied in the admin show.blade.php.
 The basic functionality is such that 'users' can create, edit, delete and view all their own posts and posts by other users however they can only edit and delete their own posts (edit and delete buttons are not shown for posts not belonging to that user). Similarly for 'authors', they can only perform CRUD operations on their own posts with an added restriction of not being able to view posts from other users. This can be tested by clicking on the search button in the posts screen (with no input) to retrive available posts for viewing.
 Both 'users' and 'authors' do not have access to the admin/posts page which is the landing page for the 'admin' users due to the admin middleware application.
-The 'admin' user, when logged in, will land on the admin/posts page which will list all posts + users they belong to followed by all users + their roles as well as buttons to create new posts or new users. The admin user can click on any post or user hypelink and then proceed to perform edit or delete operations if required. I also added an optional functionality via a checkbox to delete all associated posts belonging to a user if required.
+The 'admin' user, when logged in, will land on the admin/posts page which will list all posts + users they belong to followed by all users + their roles as well as buttons to create new posts or new users. The admin user can click on any post or user hypelink and then proceed to perform edit or delete operations if required. I also added, if required, an optional functionality via a checkbox to delete all associated posts belonging to a user if that user is deleted.
 All functionality was tested successfully with outputs matching expectations and all users passwords were generically assigned as 'password'.
 
 
