@@ -22,6 +22,7 @@ Assignment2:
 To run the project, please run the following commands to set up/configure the mongo db (test10) with both the users and posts collections/tables and to insert dummy documents/records: 
 1. php artisan migrate
 2. php artisan db:seed
+3. Type test7.test in the browser to execute the application which will proceed to the default laravel login/register page. Then proceed to test functionality as outlined below.
 
 The .env file was ammended with the blank database name (test10) and the contents of this file was copied into the .env.example file. Both the node_modules and vendor folders were removed from the zipped file for submission as was the .env file.
 
