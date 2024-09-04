@@ -32,6 +32,9 @@ Both 'users' and 'authors' do not have access to the admin/posts page which is t
 The 'admin' user, when logged in, will land on the admin/posts page which will list all posts + users they belong to followed by all users + their roles as well as buttons to create new posts or new users. The admin user can click on any post or user hypelink and then proceed to perform edit or delete operations if required. I also added, if required, an optional functionality via a checkbox to delete all associated posts belonging to a user if that user is deleted.
 All functionality was tested successfully with outputs matching expectations and all users passwords were generically assigned as 'password'.
 
+Assignment3:
+To run this, first start the server on laragon. Using command prompt, navigate to the folder where the code will be located and type npm run dev. Proceed to enter user details.
+For this assignment i had to create 2 new routes in the api.php, one to show all posts and one to show individual post details via passing a post id. I had to comment out the middleware auth:sanctum for this to work, that is for the react front end app to be able to gain access to the back end web page. Index and showEach methods were implemented in the API/postcontroller such that the react front end can view. Postman was used to test the API endpoints and worked successfully.
 
 ## About Laravel
 
